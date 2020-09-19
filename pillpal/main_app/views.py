@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .models import Prescription
 
 from django.http import HttpResponse
 # Create your views here.
@@ -9,5 +10,7 @@ def main(request):
     return render(request, 'main.html')
 
 def prescriptions_index(request):
-    return render(request, 'prescriptions/index.html')
-#    { 'prescriptions': prescriptions })
+    prescriptions = Prescription.objects.all()
+    
+    return render(request, 'prescriptions/index.html',
+    { 'prescriptions': prescriptions })
