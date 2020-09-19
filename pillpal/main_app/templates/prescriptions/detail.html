@@ -3,15 +3,35 @@
 
 <h1>Prescription Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">Prescription <!-- {{ prescription.name }} --> </span>
-    <p>Instructions: {{ prescription.instructions }}</p>
-  </div>
-  <div class="card-action">
-    <a href="{% url 'prescriptions_update' prescription.id %}">Edit</a>
-    <a href="{% url 'prescriptions_delete' prescription.id %}">Delete</a>
-</div>
+<div class="row">
+    <div class="col s6">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Prescription <!-- {{ prescription.name }} --> </span>
+            <p>Instructions: {{ prescription.instructions }}</p>
+          </div>
+          <div class="card-action">
+            <a href="{% url 'prescriptions_update' prescription.id %}">Edit</a>
+            <a href="{% url 'prescriptions_delete' prescription.id %}">Delete</a>
+          </div>
+        </div>
+    </div>
+
+    <div class="col s6">
+        <table class="striped">
+          <thead>
+            <tr><th>Date</th><th>Time</th></tr>
+            </thead>
+          <tbody>
+            {% for dosing in prescription.dosing_set.all %}
+              <tr>
+                <td>{{dosing.date}}</td>
+                <td>{{dosing.time}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
