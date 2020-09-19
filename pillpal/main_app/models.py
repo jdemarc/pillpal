@@ -19,13 +19,13 @@ class Prescription(models.Model):
         return reverse('detail', kwargs={'prescription_id': self.id})
         
 class Dosing(models.Model):
-    date = models.DateField()
+    date = models.DateField('Administration Date')
     time = models.TimeField()
 
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.get_dose_display()} on {self.date}"
+        return f"{self.date} at {self.time}"
 
 # class Medication(models.Model):
 #     brand_name = models.CharField(max_length=100)
