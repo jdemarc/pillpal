@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Prescription
 
 # CBV imports
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 # Login imports
 from django.contrib.auth import login
@@ -28,9 +28,9 @@ def prescriptions_index(request):
 
 @login_required
 def prescriptions_detail(request, prescription_id):
-    prescriptions = Prescription.objects.get(id=prescription_id)
+    prescription = Prescription.objects.get(id=prescription_id)
     return render(request, 'prescriptions/detail.html',
-    { 'prescriptions': prescriptions })
+    { 'prescription': prescription })
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
@@ -41,6 +41,15 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+    success_url = '/prescriptions/'
+
+class PrescriptionUpdate(LoginRequiredMixin, UpdateView):
+    model = Prescription
+    fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',
+    'delivery', 'dosage', 'refills']
+
+class PrescriptionDelete(LoginRequiredMixin, DeleteView):
+    model = Prescription
     success_url = '/prescriptions/'
 
 def signup(request):
