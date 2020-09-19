@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Prescription Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Prescription <!-- {{ prescription.name }} --> </span>
+    <p>Instructions: {{ prescriptions.instructions }}</p>
+  </div>
+</div>
+
+{% endblock %}

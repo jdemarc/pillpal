@@ -22,6 +22,12 @@ def prescriptions_index(request):
     return render(request, 'prescriptions/index.html',
     { 'prescriptions': prescriptions })
 
+@login_required
+def prescriptions_detail(request, prescription_id):
+    prescriptions = Prescription.objects.get(id=prescription_id)
+    return render(request, 'prescriptions/detail.html',
+    { 'prescriptions': prescriptions })
+
 def signup(request):
     error_message = ''
     if request.method == 'POST':

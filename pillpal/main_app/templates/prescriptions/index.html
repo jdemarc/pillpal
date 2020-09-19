@@ -5,10 +5,12 @@
 
 {% for prescription in prescriptions %}
   <div class="card">
+    <a href="/prescriptions/{{ prescription.id }}">
     <div class="card-content">
       <span class="card-title">Prescription</span>
       <p>Description: {{ prescription.instructions }}</p>
     </div>
+    </a>
   </div>
   
 {% endfor %}
