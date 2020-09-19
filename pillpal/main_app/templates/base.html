@@ -20,6 +20,7 @@
         <ul class="right">
           <li><a href="{% url 'main' %}">Main</a></li>
           {% if user.is_authenticated %}
+            <li><a href="{% url 'prescriptions_create' %}">Add a Prescription</a></li>
             <li><a href="{% url 'index' %}">View All My Prescriptions</a></li>
             <li><a href="{% url 'logout' %}">Log out</a></li>
           {% else %}

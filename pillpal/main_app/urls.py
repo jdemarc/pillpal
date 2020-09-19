@@ -6,5 +6,6 @@ urlpatterns = [
   path('main/', views.main, name='main'),
   path('prescriptions/', views.prescriptions_index, name='index'),
   path('prescriptions/<int:prescription_id>/', views.prescriptions_detail, name='detail'),
+  path('prescriptions/create/', views.PrescriptionCreate.as_view(), name='prescriptions_create'),
   path('accounts/signup/', views.signup, name='signup'),
 ]

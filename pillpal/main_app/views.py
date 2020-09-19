@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from .models import Prescription
 
+# CBV imports
+from django.views.generic.edit import CreateView
+
+# Login imports
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
@@ -27,6 +31,17 @@ def prescriptions_detail(request, prescription_id):
     prescriptions = Prescription.objects.get(id=prescription_id)
     return render(request, 'prescriptions/detail.html',
     { 'prescriptions': prescriptions })
+
+class PrescriptionCreate(LoginRequiredMixin, CreateView):
+    model = Prescription
+    fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',
+    'delivery', 'dosage', 'refills']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    success_url = '/prescriptions/'
 
 def signup(request):
     error_message = ''
