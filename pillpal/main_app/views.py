@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from .models import Prescription
 
+# Form import(s)
+from .forms import DosingForm
+
 # CBV imports
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
@@ -8,10 +11,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from django.http import HttpResponse
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -29,9 +30,20 @@ def prescriptions_index(request):
 @login_required
 def prescriptions_detail(request, prescription_id):
     prescription = Prescription.objects.get(id=prescription_id)
-    return render(request, 'prescriptions/detail.html',
-    { 'prescription': prescription })
+    dosing_form = DosingForm()
 
+    return render(request, 'prescriptions/detail.html',
+    { 'prescription': prescription, 'dosing_form': dosing_form })
+
+@login_required
+def add_dosing(request, prescription_id):
+    form = DosingForm(request.POST)
+    if form.is_valid():
+        new_dosing = form.save(commit=False)
+        new_dosing.prescription_id = prescription_id
+        new_dosing.save()
+    return redirect('detail', prescription_id=prescription_id)
+    
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',

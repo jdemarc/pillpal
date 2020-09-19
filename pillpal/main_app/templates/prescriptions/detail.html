@@ -18,6 +18,11 @@
     </div>
 
     <div class="col s6">
+        <form action="{% url 'add_dosing' prescription.id %}" method="POST">
+            {% csrf_token %}
+            {{ dosing_form.as_p }}
+            <input type="submit" class="btn" value="Confirm">
+        </form>
         <table class="striped">
           <thead>
             <tr><th>Date</th><th>Time</th></tr>
@@ -33,5 +38,26 @@
         </table>
     </div>
 </div>
+
+<script>
+    const dateEl = document.getElementById('id_date');
+    M.Datepicker.init(dateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+
+    const timeEl = document.getElementById('id_time');
+    const timeInstance = M.Timepicker.init(timeEl, {
+        defaultTime: 'now',
+        twelveHour: false,
+        autoClose: true
+    });
+
+    timeInstance._updateTimeFromInput();
+    timeInstance.done();
+
+</script>
 
 {% endblock %}
