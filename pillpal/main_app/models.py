@@ -15,6 +15,9 @@ class Prescription(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'prescription_id': self.id})
+        
 class Dosing(models.Model):
     date = models.DateField()
     time = models.TimeField()
