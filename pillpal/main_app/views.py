@@ -7,3 +7,7 @@ def home(request):
 
 def main(request):
     return render(request, 'main.html')
+
+def prescriptions_index(request):
+    return render(request, 'prescriptions/index.html')
+#    { 'prescriptions': prescriptions })
