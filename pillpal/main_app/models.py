@@ -3,6 +3,7 @@ from django.urls import reverse
 from datetime import date
 
 from django.contrib.auth.models import User
+
 # Create your models here.
 class Prescription(models.Model):
     prescription_issue_date = models.DateField()
@@ -13,3 +14,19 @@ class Prescription(models.Model):
     refills = models.IntegerField()
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+class Dosing(models.Model):
+    date = models.DateField()
+    time = models.TimeField()
+
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.get_dose_display()} on {self.date}"
+
+# class Medication(models.Model):
+#     brand_name = models.CharField(max_length=100)
+#     generic_name = models.CharField(max_length=100)
+#     product_ndc = models.CharField(max_length=100)
+#     side_effects = models.CharField(max_length=300)
+
