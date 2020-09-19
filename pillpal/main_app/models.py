@@ -26,6 +26,9 @@ class Dosing(models.Model):
 
     def __str__(self):
         return f"{self.date} at {self.time}"
+    
+    class Meta:
+        ordering = ['-date']
 
 # class Medication(models.Model):
 #     brand_name = models.CharField(max_length=100)

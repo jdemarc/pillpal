@@ -9,5 +9,6 @@ urlpatterns = [
   path('prescriptions/create/', views.PrescriptionCreate.as_view(), name='prescriptions_create'),
   path('prescriptions/<int:pk>/update/', views.PrescriptionUpdate.as_view(), name='prescriptions_update'),
   path('prescriptions/<int:pk>/delete/', views.PrescriptionDelete.as_view(), name='prescriptions_delete'),
+  path('prescriptions/<int:prescription_id>/add_dosing/', views.add_dosing, name='add_dosing'),
   path('accounts/signup/', views.signup, name='signup'),
 ]
