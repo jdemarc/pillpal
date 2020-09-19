@@ -19,7 +19,7 @@ class Prescription(models.Model):
         return reverse('detail', kwargs={'prescription_id': self.id})
         
 class Dosing(models.Model):
-    date = models.DateField()
+    date = models.DateField('Administration Date')
     time = models.TimeField()
 
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
