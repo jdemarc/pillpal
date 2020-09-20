@@ -58,8 +58,16 @@
 </div>
 
 <script>
-    const dateEl = document.getElementById('id_date');
-    M.Datepicker.init(dateEl, {
+    const doseDateEl = document.getElementById('dose_date');
+    M.Datepicker.init(doseDateEl, {
+        format: 'yyyy-mm-dd',
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        autoClose: true
+    });
+
+    const noteDateEl = document.getElementById('note_date');
+    M.Datepicker.init(noteDateEl, {
         format: 'yyyy-mm-dd',
         defaultDate: new Date(),
         setDefaultDate: true,
