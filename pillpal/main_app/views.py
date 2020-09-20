@@ -56,7 +56,7 @@ def add_note(request, prescription_id):
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
-    fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
     'delivery', 'dosage', 'refills']
 
     def form_valid(self, form):
@@ -67,7 +67,7 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
 
 class PrescriptionUpdate(LoginRequiredMixin, UpdateView):
     model = Prescription
-    fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
     'delivery', 'dosage', 'refills']
 
 class PrescriptionDelete(LoginRequiredMixin, DeleteView):
