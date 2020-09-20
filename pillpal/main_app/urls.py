@@ -13,3 +13,5 @@ urlpatterns = [
   path('prescriptions/<int:prescription_id>/add_note/', views.add_note, name='add_note'),
   path('accounts/signup/', views.signup, name='signup'),
 ]
+
+# This is my comment
