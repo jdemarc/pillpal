@@ -13,6 +13,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+# For API requests
+import requests
+from .services import get_medications #Maybe we do not need
+
 # Create your views here.
 def home(request):
     return render(request, 'home.html')
@@ -55,7 +59,11 @@ def add_note(request, prescription_id):
     return redirect('detail', prescription_id=prescription_id)
 
 def medications_search(request):
-    return render(request, 'search.html')
+    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:advil')
+    medication = response.json()
+
+    return render(request, 'search.html',
+    {'medication': medication['results']})
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
