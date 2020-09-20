@@ -40,9 +40,14 @@ class Note(models.Model):
     class Meta:
         ordering = ['-date']
 
-# class Medication(models.Model):
-#     brand_name = models.CharField(max_length=100)
-#     generic_name = models.CharField(max_length=100)
-#     product_ndc = models.CharField(max_length=100)
-#     side_effects = models.CharField(max_length=300)
+class Medication(models.Model):
+    brand_name = models.CharField(max_length=100)
+    generic_name = models.CharField(max_length=100)
+    product_ndc = models.CharField(max_length=100)
+    dosage_form = models.CharField(max_length=100)
+    strength = models.CharField(max_length=100)
+    active_ingredient = models.CharField(max_length=100)
+    description = models.CharField(max_length=200)
+
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
 
