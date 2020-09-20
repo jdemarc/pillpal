@@ -54,6 +54,9 @@ def add_note(request, prescription_id):
         new_note.save()
     return redirect('detail', prescription_id=prescription_id)
 
+def medications_search(request):
+    return render(request, 'search.html')
+
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
