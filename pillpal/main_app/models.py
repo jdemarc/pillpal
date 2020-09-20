@@ -30,6 +30,15 @@ class Dosing(models.Model):
     class Meta:
         ordering = ['-date']
 
+class Note(models.Model):
+    date = models.DateField('Note Date')
+    content = models.CharField(max_length=250)
+
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-date']
+
 # class Medication(models.Model):
 #     brand_name = models.CharField(max_length=100)
 #     generic_name = models.CharField(max_length=100)

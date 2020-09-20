@@ -39,6 +39,24 @@
     </div>
 </div>
 
+<hr />
+
+<div class="row">
+    <div class="col s3 center-align">Date</div>
+    <div class="col s9 center-align">Note</div>
+
+  {% for note in prescription.note_set.all %}
+  <div class="col s3 center-align"> {{note.date }} </div>
+  <div class="col s9 left-align"> {{note.content}} </div>
+  {% endfor %}
+
+    <form action="{% url 'add_note' prescription.id %}" method="POST" id="note-form">
+      {% csrf_token %}
+      {{ note_form.as_p}}
+      <input type="submit" class="btn" value="Add Note">
+    </form>
+</div>
+
 <script>
     const dateEl = document.getElementById('id_date');
     M.Datepicker.init(dateEl, {

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Prescription
 
 # Form import(s)
-from .forms import DosingForm
+from .forms import DosingForm, NoteForm
 
 # CBV imports
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -31,9 +31,10 @@ def prescriptions_index(request):
 def prescriptions_detail(request, prescription_id):
     prescription = Prescription.objects.get(id=prescription_id)
     dosing_form = DosingForm()
+    note_form = NoteForm()
 
     return render(request, 'prescriptions/detail.html',
-    { 'prescription': prescription, 'dosing_form': dosing_form })
+    { 'prescription': prescription, 'dosing_form': dosing_form, 'note_form': note_form })
 
 @login_required
 def add_dosing(request, prescription_id):
@@ -44,6 +45,15 @@ def add_dosing(request, prescription_id):
         new_dosing.save()
     return redirect('detail', prescription_id=prescription_id)
     
+@login_required
+def add_note(request, prescription_id):
+    form = NoteForm(request.POST)
+    if form.is_valid():
+        new_note = form.save(commit=False)
+        new_note.prescription_id = prescription_id
+        new_note.save()
+    return redirect('detail', prescription_id=prescription_id)
+
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['prescription_issue_date', 'prescription_filled_date', 'instructions',
