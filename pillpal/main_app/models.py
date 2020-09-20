@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 class Prescription(models.Model):
+    rx_number = models.IntegerField()
     prescription_issue_date = models.DateField()
     prescription_filled_date = models.DateField()
     instructions = models.CharField(max_length=250)
