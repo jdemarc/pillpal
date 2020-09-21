@@ -11,9 +11,8 @@ urlpatterns = [
   path('prescriptions/<int:pk>/delete/', views.PrescriptionDelete.as_view(), name='prescriptions_delete'),
   path('prescriptions/<int:prescription_id>/add_dosing/', views.add_dosing, name='add_dosing'),
   path('prescriptions/<int:prescription_id>/add_note/', views.add_note, name='add_note'),
-  path('prescriptions/<int:prescription_id>/add_medication/', views.add_medication, name='add_medication'),
-  path('prescriptions/<int:prescription_id>/search/', views.medications_search, name='search'),
-  path('medication/<str:ndc>', views.medication_assoc, name='attach_form'),
+  #path('prescriptions/<int:prescription_id>/add_medication/', views.add_medication, name='add_medication'),
+  path('prescriptions/<int:prescription_id>/medications/search/', views.medications_search, name='medication_search'),
   path('accounts/signup/', views.signup, name='signup'),
 ]
 

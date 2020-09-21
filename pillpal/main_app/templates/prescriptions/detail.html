@@ -46,7 +46,7 @@
           <span class="card-title">Medication</span>
           <nav>
             <div class="nav-wrapper">
-              <form action="{% url 'search' prescription.id %}" method="POST">
+              <form action="{% url 'medication_search' prescription.id %}" method="POST">
                   {% csrf_token %}
                 <div class="input-field">
                   <input name="search" type="search" placeholder="Search" required>

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Search by brand name</h1>
+<h3>Search by name</h3>
 
 <nav>
     <div class="nav-wrapper">
       <form action"" method="POST">
           {% csrf_token %}
         <div class="input-field">
-          <input name="search" type="search" required>
+          <input name="search" type="search" placeholder="Tylenol" required>
           <label class="label-icon" for="search"></label>
         </div>
       </form>
