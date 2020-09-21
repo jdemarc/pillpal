@@ -59,11 +59,18 @@ def add_note(request, prescription_id):
     return redirect('detail', prescription_id=prescription_id)
 
 def medications_search(request):
-    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:advil')
-    medication = response.json()
+    search = request.POST.get('search')
 
-    return render(request, 'search.html',
-    {'medication': medication['results']})
+    if search:
+        search = search.replace(' ', '-')
+        print(search)
+        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+        medication = response.json()
+        return render(request, 'search.html',
+        {'medication': medication['results']})
+
+    else:
+        return render(request, 'search.html')
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription

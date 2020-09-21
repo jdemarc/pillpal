@@ -5,9 +5,10 @@
 
 <nav>
     <div class="nav-wrapper">
-      <form action"" method="GET">
+      <form action"" method="POST">
+          {% csrf_token %}
         <div class="input-field">
-          <input id="search" type="search" required>
+          <input name="search" type="search" required>
           <label class="label-icon" for="search"></label>
         </div>
       </form>
@@ -15,13 +16,19 @@
 </nav>
 <hr />
 
-{% for prop in medication %}
-<p> GENERIC NAME: {{ prop.generic_name}}</p>
-<p> NATIONAL DRUG CODE: {{ prop.product_ndc}} </p>
-<p> DESCRIPTION: {{ prop.packaging.0.description }} </p>
-<p> STRENGTH: {{ prop.active_ingredients.0.strength }} </p>
-<p> ACTIVE INGREDIENT: {{ prop.active_ingredients.0.name }} </p>
-<p> DOSAGE FORM: {{ prop.dosage_form }} </p>
-{% endfor %}
+<div class="row">
+    {% for prop in medication %}
+    <div class="card">
+        <div class="card-content">
+            <p> GENERIC NAME: {{ prop.generic_name}}</p>
+            <p> NATIONAL DRUG CODE: {{ prop.product_ndc}} </p>
+            <p> DESCRIPTION: {{ prop.packaging.0.description }} </p>
+            <p> STRENGTH: {{ prop.active_ingredients.0.strength }} </p>
+            <p> ACTIVE INGREDIENT: {{ prop.active_ingredients.0.name }} </p>
+            <p> DOSAGE FORM: {{ prop.dosage_form }} </p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
 
 {% endblock %}
