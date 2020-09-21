@@ -30,14 +30,10 @@
         </div>
 
         <div class="card-action">
-            <a href="{% url 'attach_form' ndc=prop.product_ndc%}">Add to prescription</a>
+            <a href="/">Add to prescription</a>
         </div>
     </div>
     {% endfor %}
 </div>
 
-<script>
-    const prescriptionEl = document.getELementById('id_prescription');
-    M.FormSelect.init(prescriptionEl);
-</script>
 {% endblock %}

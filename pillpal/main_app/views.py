@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Prescription
+from .models import Prescription, Medication
 
 # Form import(s)
-from .forms import DosingForm, NoteForm
+from .forms import DosingForm, NoteForm, MedicationForm
 
 # CBV imports
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -15,7 +15,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 # For API requests
 import requests
-from .services import get_medications #Maybe we do not need
 
 # Create your views here.
 def home(request):
@@ -58,7 +57,17 @@ def add_note(request, prescription_id):
         new_note.save()
     return redirect('detail', prescription_id=prescription_id)
 
-def medications_search(request):
+@login_required
+def add_medication(request, prescription_id):
+    pass
+    # form = MedicationForm(request.POST)
+    # if form.is_valid():
+    #     new_medication = form.save(commit=False)
+    #     new_medication.prescription_id = prescription_id
+    #     new_medication.save()
+    # return redirect('detail', prescription_id=prescription_id)
+
+def medications_search(request, prescription_id):
     search = request.POST.get('search')
 
     if search:
@@ -72,9 +81,12 @@ def medications_search(request):
     else:
         return render(request, 'search.html')
 
+@login_required
 def medication_assoc(request, ndc):
-    
-    return render(request, 'medications/attach_form.html', { 'ndc':ndc})
+    prescriptions = Prescription.objects.filter(user=request.user)
+
+    return render(request, 'medications/attach_form.html',
+    {'ndc': ndc, 'prescriptions': prescriptions})
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription

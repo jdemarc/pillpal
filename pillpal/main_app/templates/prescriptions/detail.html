@@ -44,10 +44,20 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title">Medication</span>
-          <p>Placeholder</p>
+          <nav>
+            <div class="nav-wrapper">
+              <form action="{% url 'search' prescription.id %}" method="POST">
+                  {% csrf_token %}
+                <div class="input-field">
+                  <input name="search" type="search" placeholder="Search" required>
+                  <label class="label-icon" for="search"></label>
+                </div>
+              </form>
+            </div>
+        </nav>
         </div>
         <div class="card-action">
-          <a href="{% url 'search' %}">Add</a>
+          <a href="/">Add</a>
           <a href="/">Edit</a>
           <a href="/">Delete</a>
         </div>
