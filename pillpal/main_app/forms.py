@@ -1,6 +1,6 @@
 from django import forms 
 from django.forms import ModelForm
-from .models import Dosing, Note
+from .models import Dosing, Note, Medication
 
 
 class DosingForm(ModelForm):
@@ -17,8 +17,8 @@ class NoteForm(ModelForm):
         model = Note
         fields = ['date', 'content']
 
-# class MedicationAddForm(ModelForm):
-#     class Meta:
-#         model = Medication
-#         fields = ['product_ndc']
-        
+class MedicationForm(ModelForm):
+    class Meta:
+        model = Medication
+        fields = ['brand_name', 'generic_name', 'product_ndc',
+        'description', 'dosage_form', 'active_ingredient', 'strength']
