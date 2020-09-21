@@ -20,6 +20,7 @@
     {% for prop in medication %}
     <div class="card">
         <div class="card-content">
+            <p> BRAND NAME: {{ prop.brand_name }} </p>
             <p> GENERIC NAME: {{ prop.generic_name}}</p>
             <p> NATIONAL DRUG CODE: {{ prop.product_ndc}} </p>
             <p> DESCRIPTION: {{ prop.packaging.0.description }} </p>
@@ -27,8 +28,16 @@
             <p> ACTIVE INGREDIENT: {{ prop.active_ingredients.0.name }} </p>
             <p> DOSAGE FORM: {{ prop.dosage_form }} </p>
         </div>
+
+        <div class="card-action">
+            <a href="{% url 'attach_form' ndc=prop.product_ndc%}">Add to prescription</a>
+        </div>
     </div>
     {% endfor %}
 </div>
 
+<script>
+    const prescriptionEl = document.getELementById('id_prescription');
+    M.FormSelect.init(prescriptionEl);
+</script>
 {% endblock %}

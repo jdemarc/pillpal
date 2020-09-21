@@ -16,4 +16,9 @@ class NoteForm(ModelForm):
     class Meta:
         model = Note
         fields = ['date', 'content']
+
+# class MedicationAddForm(ModelForm):
+#     class Meta:
+#         model = Medication
+#         fields = ['product_ndc']
         

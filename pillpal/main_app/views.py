@@ -63,14 +63,18 @@ def medications_search(request):
 
     if search:
         search = search.replace(' ', '-')
-        print(search)
         response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
         medication = response.json()
+
         return render(request, 'search.html',
         {'medication': medication['results']})
 
     else:
         return render(request, 'search.html')
+
+def medication_assoc(request, ndc):
+    
+    return render(request, 'medications/attach_form.html', { 'ndc':ndc})
 
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
