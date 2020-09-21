@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Prescription, Medication
+from .models import Prescription, Medication, EmergencyContact
 
 # Form import(s)
 from .forms import DosingForm, NoteForm, MedicationForm
@@ -108,6 +108,42 @@ def medication_assoc(request, ndc):
     return render(request, 'medications/attach_form.html',
     {'ndc': ndc, 'prescriptions': prescriptions})
 
+'''
+Emergency Contact Functions
+'''
+
+@login_required
+def emergency_contact_detail(request):
+    emergency_contact = EmergencyContact.objects.filter(user=request.user)
+
+    return render(request, 'emergency_contact/detail.html', { 'emergency_contact': emergency_contact })
+
+'''
+Emergency Contact CRUD
+'''
+class EmergencyContactCreate(LoginRequiredMixin, CreateView):
+    model = EmergencyContact
+    fields = ['name', 'phone_number', 'relationship']
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    success_url='/emergency_contact/'
+
+class EmergencyContactUpdate(LoginRequiredMixin, UpdateView):
+    model = EmergencyContact
+    fields = ['name', 'phone_number', 'relationship']
+
+    success_url='/emergency_contact/'
+
+class EmergencyContactDelete(LoginRequiredMixin, DeleteView):
+    model = EmergencyContact
+    success_url='/emergency_contact/'
+
+'''
+Prescription CRUD
+'''
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
     fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',

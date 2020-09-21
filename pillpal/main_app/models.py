@@ -51,3 +51,9 @@ class Medication(models.Model):
 
     prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
 
+class EmergencyContact(models.Model):
+    name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=15)
+    relationship = models.CharField(max_length=15)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)

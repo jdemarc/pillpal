@@ -14,5 +14,9 @@ urlpatterns = [
   path('prescriptions/<int:prescription_id>/add_medication/', views.add_medication, name='add_medication'),
   path('prescriptions/<int:prescription_id>/medications/search/', views.medications_search, name='medication_search'),
   path('prescriptions/<int:prescription_id>/remove_medication/', views.remove_medication, name='remove_medication'),
+  path('emergency_contact/', views.emergency_contact_detail, name='ec_detail'),
+  path('emergency_contact/create/', views.EmergencyContactCreate.as_view(), name='ec_create'),
+  path('emergency_contact/<int:pk>/update/', views.EmergencyContactUpdate.as_view(), name='ec_update'),
+  path('emergency_contact/<int:pk>/delete/', views.EmergencyContactDelete.as_view(), name='ec_delete'),
   path('accounts/signup/', views.signup, name='signup'),
 ]
