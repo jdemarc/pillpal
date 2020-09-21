@@ -59,13 +59,12 @@ def add_note(request, prescription_id):
 
 @login_required
 def add_medication(request, prescription_id):
-    pass
-    # form = MedicationForm(request.POST)
-    # if form.is_valid():
-    #     new_medication = form.save(commit=False)
-    #     new_medication.prescription_id = prescription_id
-    #     new_medication.save()
-    # return redirect('detail', prescription_id=prescription_id)
+    form = MedicationForm(request.POST)
+    if form.is_valid():
+        new_medication = form.save(commit=False)
+        new_medication.prescription_id = prescription_id
+        new_medication.save()
+    return redirect('detail', prescription_id=prescription_id)
 
 def medications_search(request, prescription_id):
     search = request.POST.get('search')
@@ -74,7 +73,7 @@ def medications_search(request, prescription_id):
         search = search.replace(' ', '-')
         response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
         medication = response.json()
-
+        
         return render(request, 'search.html',
         {'medication': medication['results']})
 
