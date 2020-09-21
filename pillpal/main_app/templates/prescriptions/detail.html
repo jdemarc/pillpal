@@ -44,7 +44,7 @@
       <div class="card">
         <div class="card-content">
           <span class="card-title">Medication</span>
-          {% if prescription.medication_set.all %}
+          {% if prescription.medication_set.count %}
           {% for medication in prescription.medication_set.all %}
             <p> Generic name: {{ medication.generic_name }} </p>
             <p> Brand name: {{ medication.brand_name }} </p>
@@ -53,8 +53,11 @@
             <p> Strength: {{ medication.strength }} </p>
             <p> Active ingredient: {{ medication.active_ingredient }}</p>
             <p> Description: {{ medication.description }}</p>
-
           {% endfor %}
+          <div class="card-action">
+            <a href="{% url 'remove_medication' prescription.id %}">Delete</a>
+          </div>
+
           {% else %}
           <nav>
             <div class="nav-wrapper">
@@ -68,10 +71,6 @@
             </div>
         </nav>
         {% endif %}
-        </div>
-      
-        <div class="card-action">
-          <a href="/">Delete</a>
         </div>
       </div>
   </div>

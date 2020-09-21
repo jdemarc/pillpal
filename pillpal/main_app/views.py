@@ -66,6 +66,12 @@ def add_medication(request, prescription_id):
         new_medication.save()
     return redirect('detail', prescription_id=prescription_id)
 
+@login_required
+def remove_medication(request, prescription_id):
+    Medication.objects.filter(prescription=prescription_id).delete()
+
+    return redirect('detail', prescription_id=prescription_id)
+
 def medications_search(request, prescription_id):
     search = request.POST.get('search')
 
