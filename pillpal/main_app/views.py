@@ -71,11 +71,26 @@ def medications_search(request, prescription_id):
 
     if search:
         search = search.replace(' ', '-')
-        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=20' % search)
+        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
         medication = response.json()
-        
+        medication_form = []
+
+        limit = len(medication)
+
+        for i in range(0, limit):
+            medication_form.append(MedicationForm(initial={
+                'brand_name': medication['results'][i]['brand_name'],
+                'generic_name': medication['results'][i]['generic_name'],
+                'product_ndc': medication['results'][i]['product_ndc'],
+                'description': medication['results'][i]['packaging'][0]['description'],
+                'active_ingredient': medication['results'][i]['active_ingredients'][0]['name'],
+                'dosage_form': medication['results'][i]['dosage_form'],
+                'strength': medication['results'][i]['active_ingredients'][0]['strength']
+            }))
+
         return render(request, 'search.html',
-        {'medication': medication['results']})
+        {'medication': medication['results'],
+        'medication_form': medication_form, 'prescription_id': prescription_id})
 
     else:
         return render(request, 'search.html')

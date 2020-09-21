@@ -17,20 +17,14 @@
 <hr />
 
 <div class="row">
-    {% for prop in medication %}
+    {% for med in medication_form %}
     <div class="card">
         <div class="card-content">
-            <p> BRAND NAME: {{ prop.brand_name }} </p>
-            <p> GENERIC NAME: {{ prop.generic_name}}</p>
-            <p> NATIONAL DRUG CODE: {{ prop.product_ndc}} </p>
-            <p> DESCRIPTION: {{ prop.packaging.0.description }} </p>
-            <p> STRENGTH: {{ prop.active_ingredients.0.strength }} </p>
-            <p> ACTIVE INGREDIENT: {{ prop.active_ingredients.0.name }} </p>
-            <p> DOSAGE FORM: {{ prop.dosage_form }} </p>
-        </div>
-
-        <div class="card-action">
-            <a href="/">Add to prescription</a>
+            <form action="{% url 'add_medication' prescription_id %}" method="POST">
+              {% csrf_token %}
+              {{ med }}
+              <input type="submit" class="btn" value="Add to prescription">
+            </form>
         </div>
     </div>
     {% endfor %}
