@@ -2,12 +2,12 @@
 {% block content %}
 
   {% if object %}
-    <h1>Edit <span class="teal-text"> Prescription {{object.rx_number}}</span></h1>
+    <h1>Edit <span class="teal-text"> Contact </span></h1>
   {% else %}
-    <h1>Add Prescription</h1>
+    <h1>Add Emergency Contact</h1>
   {% endif %}
 
-    <form action="" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}
     <table>
       {{ form.as_table }}

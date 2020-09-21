@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Emergency Contact</h2>
+<div class="card">
+    {% if emergency_contact %}
+    {% for prop in emergency_contact %}
+    <div class="card-content">
+    <span class="card-title">
+        {{ prop.name }}
+    </span>
+    
+        <p>{{ prop.phone_number }}</p>
+        <p>{{ prop.relationship }}</p>
+    </div>
+    <div class="card-action">
+        <a href="{% url 'ec_update' prop.id %}">Edit</a>
+        <a href="{% url 'ec_delete' prop.id %}">Delete</a>
+        {% endfor %}
+        {% else %}
+        <a href="{% url 'ec_create' %}">Add</a>
+    {% endif %}
+    </div>
+    
+</div>
+
+
+{% endblock %}
