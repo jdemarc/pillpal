@@ -71,7 +71,7 @@ def medications_search(request, prescription_id):
 
     if search:
         search = search.replace(' ', '-')
-        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=20' % search)
         medication = response.json()
         
         return render(request, 'search.html',
