@@ -44,12 +44,14 @@
     {% endfor %}
 
     {% if not prescription.photo_set.count %}
-    <form action="{% url 'add_photo' prescription.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-      {% csrf_token %}
-      <input type="file" name="photo-file">
-      <br><br>
-      <input type="submit" class="btn" value="Upload Photo">
-    </form>
+    <div class="card-action center-align">
+      <form action="{% url 'add_photo' prescription.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
+        {% csrf_token %}
+        <input type="file" name="photo-file">
+        <br><br>
+        <input type="submit" class="btn" value="Upload Photo">
+      </form>
+    </div>
     {% endif %}
   </div>
   <div class="col s6 center-align">

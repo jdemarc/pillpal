@@ -21,3 +21,12 @@ footer.page-footer {
     display: flex;
     justify-content: space-around;
 }
+
+#main-container {
+    margin-top: 10vh;
+}
+
+#pill-bottle, #search-icon, #ec-icon {
+    width: 25%;
+    height: 25%;
+}
