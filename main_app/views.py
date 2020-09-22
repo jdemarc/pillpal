@@ -1,8 +1,16 @@
 from django.shortcuts import render, redirect
-from .models import Prescription, Medication, EmergencyContact, Dosing
+
+# Photo imports
+import uuid
+import boto3
+
+from .models import Prescription, Medication, EmergencyContact, Dosing, Photo
 
 # Form import(s)
 from .forms import DosingForm, NoteForm, MedicationForm
+
+S3_BASE_URL = 'https://s3.us-east-1.amazonaws.com/'
+BUCKET = 'django-pillpal-bucket'
 
 # CBV imports
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -64,6 +72,20 @@ def add_note(request, prescription_id):
         new_note = form.save(commit=False)
         new_note.prescription_id = prescription_id
         new_note.save()
+    return redirect('detail', prescription_id=prescription_id)
+
+@login_required
+def add_photo(request, prescription_id):
+    photo_file = request.FILES.get('photo-file', None)
+    if photo_file:
+        s3 = boto3.client('s3')
+        key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
+        try:
+            s3.upload_fileobj(photo_file, BUCKET, key)
+            url = f"{S3_BASE_URL}{BUCKET}/{key}"
+            Photo.objects.create(url=url, prescription_id=prescription_id)
+        except:
+            print('An error occurred uploading file to S3')
     return redirect('detail', prescription_id=prescription_id)
 
 @login_required

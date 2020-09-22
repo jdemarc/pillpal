@@ -64,3 +64,11 @@ class EmergencyContact(models.Model):
     relationship = models.CharField(max_length=15)
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+class Photo(models.Model):
+    url = models.CharField(max_length=200)
+
+    prescription = models.ForeignKey(Prescription, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Photo for prescription_id: {self.prescription_id} @ {self.url}'
