@@ -12,6 +12,7 @@ urlpatterns = [
   path('prescriptions/<int:prescription_id>/add_dosing/', views.add_dosing, name='add_dosing'),
   path('prescriptions/<int:prescription_id>/remove_dosing/<int:dosing_id>/', views.remove_dosing, name='remove_dosing'),
   path('prescriptions/<int:prescription_id>/add_photo', views.add_photo, name='add_photo'),
+  path('prescriptions/<int:prescription_id>/remove_photo/<int:photo_id>/', views.remove_photo, name='remove_photo'),
   path('prescriptions/<int:prescription_id>/add_note/', views.add_note, name='add_note'),
   path('prescriptions/<int:prescription_id>/add_medication/', views.add_medication, name='add_medication'),
   path('prescriptions/<int:prescription_id>/medications/search/', views.medications_search, name='medication_search'),
