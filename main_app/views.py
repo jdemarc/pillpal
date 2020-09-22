@@ -139,11 +139,11 @@ def medications_search(request, prescription_id):
         return render(request, 'search.html')
 
 @login_required
-def medication_assoc(request, ndc):
+def medication_assoc(request):
     prescriptions = Prescription.objects.filter(user=request.user)
 
     return render(request, 'medications/attach_form.html',
-    {'ndc': ndc, 'prescriptions': prescriptions})
+    {'prescriptions': prescriptions})
 
 '''
 Emergency Contact Functions
@@ -183,7 +183,7 @@ Prescription CRUD
 '''
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
-    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'times_per_day',
     'delivery', 'dosage', 'refills']
 
     def form_valid(self, form):
@@ -194,7 +194,7 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
 
 class PrescriptionUpdate(LoginRequiredMixin, UpdateView):
     model = Prescription
-    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'times_per_day',
     'delivery', 'dosage', 'refills']
 
 class PrescriptionDelete(LoginRequiredMixin, DeleteView):

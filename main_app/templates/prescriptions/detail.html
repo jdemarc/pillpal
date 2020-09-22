@@ -12,9 +12,16 @@
         <p>Take prescribed amount {{ prescription.times_per_day }} times per day</p>
         <p>{{ prescription.delivery }}</p>
       </div>
-      <div class="card-action">
-        <a href="{% url 'prescriptions_update' prescription.id %}">Edit</a>
-        <a href="{% url 'prescriptions_delete' prescription.id %}">Delete</a>
+      <div class="card-action" id="prescription-icons">
+        <form action="{% url 'prescriptions_update' prescription.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn" type="submit" id='prescription-btns'>EDIT</button>
+        </form>
+
+        <form action="{% url 'prescriptions_delete' prescription.id %}" method="POST">
+          {% csrf_token %}
+          <button class="btn" type="submit" id='prescription-btns'>REMOVE</button>
+        </form>
       </div>
     </div>
     {% for photo in prescription.photo_set.all %}
@@ -22,7 +29,7 @@
       <div class="card-image">
         <img src="{{photo.url}}">
       </div>
-      <div class="card-action">
+      <div class="card-action center-align">
         <form action="{% url 'remove_photo' prescription.id photo.id %}" method="POST">
           {% csrf_token %}
           <button class="btn" type="submit">REMOVE
@@ -45,7 +52,7 @@
     </form>
     {% endif %}
   </div>
-  <div class="col s6">
+  <div class="col s6 center-align">
     <form action="{% url 'add_dosing' prescription.id %}" method="POST">
       {% csrf_token %} 
       {{ dosing_form.as_p }}
@@ -102,35 +109,32 @@
         <p>Active ingredient: {{ medication.active_ingredient }}</p>
         <p>Description: {{ medication.description }}</p>
         {% endfor %}
+      </div>
         <div class="card-action">
-          <a href="{% url 'remove_medication' prescription.id %}">Delete</a>
+          <form action="{% url 'remove_medication' prescription.id %}" method="POST">
+            {% csrf_token %}
+            <button class="btn" type="submit">REMOVE</button>
+          </form>
         </div>
         {% else %}
         <nav>
           <div class="nav-wrapper">
-            <form
-              action="{% url 'medication_search' prescription.id %}"
-              method="POST"
-            >
+            <form action="{% url 'medication_search' prescription.id %}" method="POST">
               {% csrf_token %}
               <div class="input-field">
-                <input
-                  name="search"
-                  type="search"
-                  placeholder="Search"
-                  required
-                />
+                <input name="search" type="search" placeholder="Search" required>
                 <label class="label-icon" for="search"></label>
               </div>
             </form>
           </div>
         </nav>
         {% endif %}
-      </div>
     </div>
   </div>
+
+  </div>
 </div>
-<hr />
+
 <div class="row">
   <div class="col s3 center-align">Date</div>
   <div class="col s9 center-align">Note</div>
@@ -138,14 +142,10 @@
   <div class="col s3 center-align">{{note.date }}</div>
   <div class="col s9 left-align">{{note.content}}</div>
   {% endfor %}
-  <form
-    action="{% url 'add_note' prescription.id %}"
-    method="POST"
-    id="note-form"
-  >
+  <form action="{% url 'add_note' prescription.id %}" method="POST">
     {% csrf_token %} 
     {{ note_form.as_p}}
-    <input type="submit" class="btn" value="Add Note" />
+    <input type="submit" class="btn" value="Add Note">
   </form>
 </div>
 

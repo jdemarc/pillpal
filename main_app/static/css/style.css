@@ -16,3 +16,8 @@ footer.page-footer {
 #note-form {
   margin-top: 10px;
 }
+
+#prescription-icons {
+    display: flex;
+    justify-content: space-around;
+}
