@@ -1,12 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Main page.</h2>
-<hr />
 
-<a href="{% url 'index' %}">View All My Prescriptions</a>
-<a href="">Search Medicine</a>
-<a href="{% url 'ec_detail' %}">Emergency Contact</a>
+{% load static %}
+<div class="container center-align" id='main-container'>
+    <div class="col s8">
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Prescriptions</span>
+          <a href="{% url 'index' %}">
+              <img src="{% static "imgs/pill-bottle.png" %}" id='pill-bottle'>
+          </a>
+        </div>
+      </div>
+    </div>
 
-<footer>All Rights Reserved, &copy; 2020 PillPal</footer>
+    <div class="col s8">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Search</span>
+            <a href="/">
+                <img src="{% static "imgs/search-icon.png" %}" id='search-icon'>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col s8">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Emergency Contact</span>
+            <a href="{% url 'ec_detail' %}">
+                <img src="{% static "imgs/emergency-contact-icon.png" %}" id='ec-icon'>
+            </a>
+          </div>
+        </div>
+      </div>
+</div>
   
 {% endblock %}

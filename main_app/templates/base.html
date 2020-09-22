@@ -21,7 +21,6 @@
         </ul>
         <ul class="right">
           {% if user.is_authenticated %}
-            <li><a href="{% url 'main' %}">Main</a></li>
             <li><a href="{% url 'prescriptions_create' %}">Add a Prescription</a></li>
             <li><a href="{% url 'index' %}">View All My Prescriptions</a></li>
             <li><a href="{% url 'logout' %}">Log out</a></li>
@@ -38,7 +37,7 @@
     {% endblock %}
   </main>
   <footer class="page-footer">
-    <div class="right">All Rights Reserved, &copy; 2020 PillPal &nbsp;</div>
+    2020 SEI-CC-9
   </footer>
 </body>
 </html>
