@@ -120,6 +120,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/prescriptions/'
+LOGIN_REDIRECT_URL = '/main/'
 
 LOGOUT_REDIRECT_URL = '/'

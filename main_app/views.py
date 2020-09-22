@@ -18,8 +18,12 @@ import requests
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    if request.user.is_authenticated:
+        return redirect('main')
+    else:
+        return render(request, 'home.html')
 
+@login_required
 def main(request):
     return render(request, 'main.html')
 
