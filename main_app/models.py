@@ -9,7 +9,7 @@ class Prescription(models.Model):
     rx_number = models.IntegerField()
     prescription_issue_date = models.DateField()
     prescription_filled_date = models.DateField()
-    instructions = models.CharField(max_length=250)
+    times_per_day = models.IntegerField()
     delivery = models.CharField(max_length=100)
     dosage = models.CharField(max_length=100)
     refills = models.IntegerField()
@@ -18,6 +18,12 @@ class Prescription(models.Model):
 
     def get_absolute_url(self):
         return reverse('detail', kwargs={'prescription_id': self.id})
+
+    def taken_today(self):
+        return self.dosing_set.filter(date=date.today()).count() >= self.times_per_day
+        
+    def times_taken(self):
+        return self.times_per_day - self.dosing_set.filter(date=date.today()).count()
         
 class Dosing(models.Model):
     date = models.DateField('Administration Date')
