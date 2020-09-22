@@ -46,6 +46,14 @@
         <tr>
           <td>{{dosing.date}}</td>
           <td>{{dosing.time}}</td>
+          <td>
+            <form action="{% url 'remove_dosing' prescription.id dosing.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn" type="submit">
+                <i class="small material-icons">close</i>
+              </button>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
