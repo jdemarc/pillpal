@@ -24,6 +24,7 @@ class Prescription(models.Model):
         
     def times_taken(self):
         return self.times_per_day - self.dosing_set.filter(date=date.today()).count()
+
         
 class Dosing(models.Model):
     date = models.DateField('Administration Date')
