@@ -1,126 +1,145 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} 
 {% block content %}
 
 <h1>Prescription Details</h1>
-
-<div class="row">
-    <div class="col s6">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Prescription {{ prescription.rx_number }} </span>
-            <p>Instructions: {{ prescription.instructions }}</p>
-          </div>
-          <div class="card-action">
-            <a href="{% url 'prescriptions_update' prescription.id %}">Edit</a>
-            <a href="{% url 'prescriptions_delete' prescription.id %}">Delete</a>
-          </div>
-        </div>
-    </div>
-
-    <div class="col s6">
-        <form action="{% url 'add_dosing' prescription.id %}" method="POST">
-            {% csrf_token %}
-            {{ dosing_form.as_p }}
-            <input type="submit" class="btn" value="Confirm">
-        </form>
-        <table class="striped">
-          <thead>
-            <tr><th>Date</th><th>Time</th></tr>
-            </thead>
-          <tbody>
-            {% for dosing in prescription.dosing_set.all %}
-              <tr>
-                <td>{{dosing.date}}</td>
-                <td>{{dosing.time}}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-    </div>
-</div>
-
 <div class="row">
   <div class="col s6">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Medication</span>
-          {% if prescription.medication_set.count %}
-          {% for medication in prescription.medication_set.all %}
-            <p> Generic name: {{ medication.generic_name }} </p>
-            <p> Brand name: {{ medication.brand_name }} </p>
-            <p> NDC {{ medication.product_ndc }}</p>
-            <p> Dosage: {{ medication.dosage_form }} </p>
-            <p> Strength: {{ medication.strength }} </p>
-            <p> Active ingredient: {{ medication.active_ingredient }}</p>
-            <p> Description: {{ medication.description }}</p>
-          {% endfor %}
-          <div class="card-action">
-            <a href="{% url 'remove_medication' prescription.id %}">Delete</a>
-          </div>
-
-          {% else %}
-          <nav>
-            <div class="nav-wrapper">
-              <form action="{% url 'medication_search' prescription.id %}" method="POST">
-                  {% csrf_token %}
-                <div class="input-field">
-                  <input name="search" type="search" placeholder="Search" required>
-                  <label class="label-icon" for="search"></label>
-                </div>
-              </form>
-            </div>
-        </nav>
-        {% endif %}
-        </div>
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title"
+          >Prescription {{ prescription.rx_number }}
+        </span>
+        <p>Take prescribed amount {{ prescription.times_per_day }} times per day</p>
+        <p>{{ prescription.delivery }}</p>
       </div>
+      <div class="card-action">
+        <a href="{% url 'prescriptions_update' prescription.id %}">Edit</a>
+        <a href="{% url 'prescriptions_delete' prescription.id %}">Delete</a>
+      </div>
+    </div>
+  </div>
+  <div class="col s6">
+    <form action="{% url 'add_dosing' prescription.id %}" method="POST">
+      {% csrf_token %} 
+      {{ dosing_form.as_p }}
+      <input type="submit" class="btn" value="Confirm" />
+    </form>
+    <br />
+    <div class="card-panel red-text center-align">
+    {% if prescription.taken_today < prescription.times_per_day %}
+      You have {{ prescription.times_taken }} dose(s) remaining today
+    {% elif prescription.taken_today == prescription.times_per_day %}
+      You have taken your required doses today
+    {% else %}
+      You have taken too many!
+    {% endif %}
+    </div>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dosing in prescription.dosing_set.all %}
+        <tr>
+          <td>{{dosing.date}}</td>
+          <td>{{dosing.time}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-
-<hr />
-
 <div class="row">
-    <div class="col s3 center-align">Date</div>
-    <div class="col s9 center-align">Note</div>
-
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Medication</span>
+        {% if prescription.medication_set.count %} 
+        {% for medication in prescription.medication_set.all %}
+        <p>Generic name: {{ medication.generic_name }}</p>
+        <p>Brand name: {{ medication.brand_name }}</p>
+        <p>NDC {{ medication.product_ndc }}</p>
+        <p>Dosage: {{ medication.dosage_form }}</p>
+        <p>Strength: {{ medication.strength }}</p>
+        <p>Active ingredient: {{ medication.active_ingredient }}</p>
+        <p>Description: {{ medication.description }}</p>
+        {% endfor %}
+        <div class="card-action">
+          <a href="{% url 'remove_medication' prescription.id %}">Delete</a>
+        </div>
+        {% else %}
+        <nav>
+          <div class="nav-wrapper">
+            <form
+              action="{% url 'medication_search' prescription.id %}"
+              method="POST"
+            >
+              {% csrf_token %}
+              <div class="input-field">
+                <input
+                  name="search"
+                  type="search"
+                  placeholder="Search"
+                  required
+                />
+                <label class="label-icon" for="search"></label>
+              </div>
+            </form>
+          </div>
+        </nav>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col s3 center-align">Date</div>
+  <div class="col s9 center-align">Note</div>
   {% for note in prescription.note_set.all %}
-  <div class="col s3 center-align"> {{note.date }} </div>
-  <div class="col s9 left-align"> {{note.content}} </div>
+  <div class="col s3 center-align">{{note.date }}</div>
+  <div class="col s9 left-align">{{note.content}}</div>
   {% endfor %}
-
-    <form action="{% url 'add_note' prescription.id %}" method="POST" id="note-form">
-      {% csrf_token %}
-      {{ note_form.as_p}}
-      <input type="submit" class="btn" value="Add Note">
-    </form>
+  <form
+    action="{% url 'add_note' prescription.id %}"
+    method="POST"
+    id="note-form"
+  >
+    {% csrf_token %} 
+    {{ note_form.as_p}}
+    <input type="submit" class="btn" value="Add Note" />
+  </form>
 </div>
 
 <script>
-    const doseDateEl = document.getElementById('dose_date');
-    M.Datepicker.init(doseDateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    });
+  const doseDateEl = document.getElementById("dose_date");
+  M.Datepicker.init(doseDateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  });
 
-    const noteDateEl = document.getElementById('note_date');
-    M.Datepicker.init(noteDateEl, {
-        format: 'yyyy-mm-dd',
-        defaultDate: new Date(),
-        setDefaultDate: true,
-        autoClose: true
-    });
+  const noteDateEl = document.getElementById("note_date");
+  M.Datepicker.init(noteDateEl, {
+    format: "yyyy-mm-dd",
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true,
+  });
 
-    const timeEl = document.getElementById('id_time');
-    const timeInstance = M.Timepicker.init(timeEl, {
-        defaultTime: 'now',
-        twelveHour: false,
-        autoClose: true
-    });
+  const timeEl = document.getElementById("id_time");
+  const timeInstance = M.Timepicker.init(timeEl, {
+    defaultTime: "now",
+    twelveHour: false,
+    autoClose: true,
+  });
 
-    timeInstance._updateTimeFromInput();
-    timeInstance.done();
-
+  timeInstance._updateTimeFromInput();
+  timeInstance.done();
 </script>
 
 {% endblock %}
