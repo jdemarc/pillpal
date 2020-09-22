@@ -89,6 +89,11 @@ def add_photo(request, prescription_id):
     return redirect('detail', prescription_id=prescription_id)
 
 @login_required
+def remove_photo(request, prescription_id, photo_id):
+    Photo.objects.get(id=photo_id).delete()
+    return redirect('detail', prescription_id)
+
+@login_required
 def add_medication(request, prescription_id):
     form = MedicationForm(request.POST)
     if form.is_valid():
