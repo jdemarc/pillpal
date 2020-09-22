@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Prescription, Medication, EmergencyContact
+from .models import Prescription, Medication, EmergencyContact, Dosing
 
 # Form import(s)
 from .forms import DosingForm, NoteForm, MedicationForm
@@ -51,7 +51,12 @@ def add_dosing(request, prescription_id):
         new_dosing.prescription_id = prescription_id
         new_dosing.save()
     return redirect('detail', prescription_id=prescription_id)
-    
+
+@login_required
+def remove_dosing(request, prescription_id, dosing_id):
+    Dosing.objects.get(id=dosing_id).delete()
+    return redirect('detail', prescription_id=prescription_id)
+
 @login_required
 def add_note(request, prescription_id):
     form = NoteForm(request.POST)
@@ -72,6 +77,7 @@ def add_medication(request, prescription_id):
 
 @login_required
 def remove_medication(request, prescription_id):
+    #Maybe Medications.objects.get
     Medication.objects.filter(prescription=prescription_id).delete()
 
     return redirect('detail', prescription_id=prescription_id)
@@ -150,7 +156,7 @@ Prescription CRUD
 '''
 class PrescriptionCreate(LoginRequiredMixin, CreateView):
     model = Prescription
-    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'times_per_day',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
     'delivery', 'dosage', 'refills']
 
     def form_valid(self, form):
@@ -161,7 +167,7 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
 
 class PrescriptionUpdate(LoginRequiredMixin, UpdateView):
     model = Prescription
-    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'times_per_day',
+    fields = ['rx_number', 'prescription_issue_date', 'prescription_filled_date', 'instructions',
     'delivery', 'dosage', 'refills']
 
 class PrescriptionDelete(LoginRequiredMixin, DeleteView):
