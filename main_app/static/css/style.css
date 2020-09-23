@@ -64,7 +64,7 @@ footer.page-footer {
 
 @media only screen and (max-width: 768px) {
     #landing-page-bg {
-      background-position: bottom;
+      background-position: 10% -90%;
     }
   }
 
