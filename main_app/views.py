@@ -206,6 +206,10 @@ class PrescriptionCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
+    # def get_form(self, form_class):
+    #     form = super(PrescriptionCreate, self).get_form(form_class)
+    #     form.fields['date_field'].widget.attrs.update({'class': 'datepicker'})
+    #     return form
     success_url = '/prescriptions/'
 
 class PrescriptionUpdate(LoginRequiredMixin, UpdateView):

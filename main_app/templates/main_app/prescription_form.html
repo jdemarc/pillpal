@@ -14,5 +14,13 @@
     </table>
     <input type="submit" value="Submit" class="btn">
   </form>
-
+<script>
+const prescriptionDateEl = document.getElementById("prescription_date");
+M.Datepicker.init(prescriptionDateEl, {
+  format: "yyyy-mm-dd",
+  defaultDate: new Date(),
+  setDefaultDate: true,
+  autoClose: true,
+});
+</script>
 {% endblock %}
