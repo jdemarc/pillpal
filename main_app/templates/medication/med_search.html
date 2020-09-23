@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h3>Search by generic name</h3>
+<h3>Search by name</h3>
 
 <nav>
     <div class="nav-wrapper">
@@ -16,18 +16,18 @@
 </nav>
 <hr />
 
-{% if medication %}
 <div class="row">
-    {% for property in medication %}
+    {% for med in medication_form %}
     <div class="card">
         <div class="card-content">
-          <p> Brand name: {{ property.brand_name }} </p>
-          <p> Generic name: {{ property.generic_name }} </p>
-          <p> National Drug Code: {{ property.product_ndc }} </p>
+            <form action="{% url 'add_medication' prescription_id %}" method="POST">
+              {% csrf_token %}
+              {{ med }}
+              <input type="submit" class="btn" value="Add to prescription">
+            </form>
         </div>
     </div>
     {% endfor %}
-  </div>
-  {% endif %}
+</div>
 
 {% endblock %}
