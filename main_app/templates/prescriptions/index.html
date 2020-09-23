@@ -8,7 +8,7 @@
     <a href="{% url 'detail' prescription.id %}">
     <div class="card-content">
       <span class="card-title">Prescription {{ prescription.rx_number }}</span>
-      <p>Description: {{ prescription.instructions }}</p>
+      <p>Date issued: {{ prescription.prescription_issue_date}}</p>
     </div>
     </a>
   </div>
