@@ -9,8 +9,12 @@
         <span class="card-title"
           >Prescription {{ prescription.rx_number }}
         </span>
+        <p>Issue Date: {{ prescription.prescription_issue_date }}</p>
+        <p>Date filled: {{prescription.prescription_filled_date}}</p>
         <p>Take prescribed amount {{ prescription.times_per_day }} times per day</p>
         <p>{{ prescription.delivery }}</p>
+        <p>Dosage: {{ prescription.dosage }}</p>
+        <p>Refills: {{ prescription.refills }}</p>
       </div>
       <div class="card-action" id="prescription-icons">
         <form action="{% url 'prescriptions_update' prescription.id %}" method="POST">
