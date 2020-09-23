@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 
 # Photo imports
 import uuid
@@ -34,6 +35,21 @@ def home(request):
 @login_required
 def main(request):
     return render(request, 'main.html')
+
+@login_required
+def main_search(request):
+    search = request.POST.get('search')
+
+    search = search.replace(' ', '-')
+    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+    
+    if (response.status_code >= 400):
+        return render(request, 'search.html')
+    
+    else:
+        medication = response.json()
+        return render(request, 'search.html', { 'medication': medication['results'] })
+    
 
 @login_required
 def prescriptions_index(request):
@@ -131,7 +147,7 @@ def medications_search(request, prescription_id):
                 'strength': medication['results'][i]['active_ingredients'][0]['strength']
             }))
 
-        return render(request, 'search.html',
+        return render(request, 'medication/med_search.html',
         {'medication': medication['results'],
         'medication_form': medication_form, 'prescription_id': prescription_id})
 
