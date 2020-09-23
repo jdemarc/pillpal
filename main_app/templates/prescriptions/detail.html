@@ -12,7 +12,7 @@
         <p>Issue Date: {{ prescription.prescription_issue_date }}</p>
         <p>Date filled: {{prescription.prescription_filled_date}}</p>
         <p>Take prescribed amount {{ prescription.times_per_day }} times per day</p>
-        <p>{{ prescription.delivery }}</p>
+        <p>Route: {{ prescription.delivery }}</p>
         <p>Dosage: {{ prescription.dosage }}</p>
         <p>Refills: {{ prescription.refills }}</p>
       </div>
@@ -59,11 +59,18 @@
     {% endif %}
   </div>
   <div class="col s6 center-align">
-    <form action="{% url 'add_dosing' prescription.id %}" method="POST">
-      {% csrf_token %} 
-      {{ dosing_form.as_p }}
-      <input type="submit" class="btn" value="Confirm" />
-    </form>
+    <div class="card">
+      <div class="card-content">
+        <form action="{% url 'add_dosing' prescription.id %}" method="POST">
+          {% csrf_token %} 
+          {{ dosing_form.as_p }}
+        </div>
+          <div class="card-action">
+            <input type="submit" class="btn" value="Confirm">
+          </div>
+        </form>
+    </div>
+    
     <br />
 
     {% if prescription.times_per_day >= prescription.times_taken and prescription.times_taken > 0 %}
@@ -101,9 +108,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="col s6">
     <div class="card">
-      <div class="card-content">
+      <div class="card-content center-align">
         <span class="card-title">Medication</span>
         {% if prescription.medication_set.count %} 
         {% for medication in prescription.medication_set.all %}
@@ -116,7 +122,7 @@
         <p>Description: {{ medication.description }}</p>
         {% endfor %}
       </div>
-        <div class="card-action">
+        <div class="card-action center-align">
           <form action="{% url 'remove_medication' prescription.id %}" method="POST">
             {% csrf_token %}
             <button class="btn" type="submit">REMOVE</button>
@@ -137,22 +143,33 @@
         {% endif %}
     </div>
   </div>
-
-  </div>
 </div>
-
-<div class="row">
-  <div class="col s3 center-align">Date</div>
-  <div class="col s9 center-align">Note</div>
-  {% for note in prescription.note_set.all %}
-  <div class="col s3 center-align">{{note.date }}</div>
-  <div class="col s9 left-align">{{note.content}}</div>
-  {% endfor %}
-  <form action="{% url 'add_note' prescription.id %}" method="POST">
-    {% csrf_token %} 
-    {{ note_form.as_p}}
-    <input type="submit" class="btn" value="Add Note">
-  </form>
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Notes</span>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        {% for note in prescription.note_set.all %}
+        <tbody><tr>
+          <td>{{note.date}}</td>
+          <td>{{note.content}}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      </table>
+      <form action="{% url 'add_note' prescription.id %}" method="POST">
+        {% csrf_token %} 
+        {{ note_form.as_p}}
+      </div>
+      <div class="card-action center-align">
+        <input type="submit" class="btn" value="Add Note">
+      </div>
+      </form>
 </div>
 
 <script>

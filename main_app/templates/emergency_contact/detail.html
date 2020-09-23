@@ -9,18 +9,29 @@
     <span class="card-title">
         {{ prop.name }}
     </span>
-    
-        <p>{{ prop.phone_number }}</p>
-        <p>{{ prop.relationship }}</p>
+    <span>
+
+    </span>
+        <p><strong>Phone Number</strong>: {{ prop.phone_number }}</p>
+        <p><strong>Relationship</strong>: {{ prop.relationship }}</p>
     </div>
-    <div class="card-action">
-        <a href="{% url 'ec_update' prop.id %}">Edit</a>
-        <a href="{% url 'ec_delete' prop.id %}">Delete</a>
-        {% endfor %}
-        {% else %}
-        <a href="{% url 'ec_create' %}">Add</a>
+    <div class="card-action" id="ec-buttons">
+        <form action="{% url 'ec_update' prop.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Edit" class="btn">  
+        </form>
+        <form action="{% url 'ec_delete' prop.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn">  
+        </form>
+    {% endfor %}
+    {% else %}
+    </div>
+        <form action="{% url 'ec_create' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Add" class="btn">  
+        </form>
     {% endif %}
-    </div>
     
 </div>
 
