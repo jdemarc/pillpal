@@ -1,9 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    font-family: 'Ubuntu', sans-serif;
 }
-  
+
+#landing-page-bg {
+    background-color: lightgray;
+    background-image: url("../imgs/pillpal.png");
+    background-position: right top;
+    /* Top Right Bottom Left */
+    background-repeat: no-repeat;
+}
+
+#landing-btn {
+    margin: 10px;
+}
+
 main {
     flex: 1 0 auto;
 }
@@ -11,10 +26,6 @@ main {
 footer.page-footer {
     padding-top: 0;
     text-align: right;
-}
-
-#note-form {
-  margin-top: 10px;
 }
 
 #prescription-icons {
@@ -30,3 +41,21 @@ footer.page-footer {
     width: 25%;
     height: 25%;
 }
+
+@media only screen and (max-width: 768px) {
+    #landing-page-bg {
+      background-position: bottom;
+    }
+  }
+
+@media only screen and (min-width: 868px) {
+    #landing-page-bg {
+      background-position: right top;
+    }
+  }
+
+@media only screen and (min-width: 1200px) {
+    #landing-page-bg {
+      background-position: center top;
+    }
+  }
