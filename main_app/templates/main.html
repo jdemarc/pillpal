@@ -1,40 +1,58 @@
-{% extends 'base.html' %}
-{% block content %}
-
 {% load static %}
-<div class="container center-align" id='main-container'>
-    <div class="col s8">
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Prescriptions</span>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>PillPal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+<body>
+  <header class="navbar-fixed">
+    <nav>
+      <div class="nav-wrapper">
+        <ul>
+          <li><a href="/" class="left brand-logo">&nbsp;&nbsp;PillPal Logo</a></li>
+        </ul>
+        <ul class="right">
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'prescriptions_create' %}">Add a Prescription</a></li>
+            <li><a href="{% url 'index' %}">View All My Prescriptions</a></li>
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+          {% else %}
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            {% endif %}
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="container" id="main-ctr">
+      <div class="container center-align">
+        <div class="col">
           <a href="{% url 'index' %}">
-              <img src="{% static "imgs/pill-bottle.png" %}" id='pill-bottle'>
+            <img src="{% static "imgs/pill-bottle.png" %}" id='pill-bottle'>
           </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="col s8">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Search</span>
+        </div>  
+          <div class="col">
             <a href="{% url 'main_search' %}">
-                <img src="{% static "imgs/search-icon.png" %}" id='search-icon'>
+              <img src="{% static "imgs/search-icon.png" %}" id='search-icon'>
             </a>
           </div>
-        </div>
-      </div>
-
-      <div class="col s8">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Emergency Contact</span>
+          <div class="col">
             <a href="{% url 'ec_detail' %}">
-                <img src="{% static "imgs/emergency-contact-icon.png" %}" id='ec-icon'>
+              <img src="{% static "imgs/emergency-contact-icon.png" %}" id='ec-icon'>
             </a>
           </div>
         </div>
-      </div>
-</div>
-  
-{% endblock %}
+      </main>
+      <footer class="page-footer">
+        2020 SEI-CC-9
+      </footer>
+    </body>
+    </html>
