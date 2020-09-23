@@ -19,16 +19,17 @@ body {
 #main-ctr {
     background-image: url("../imgs/shelf.png");
     background-position: center;
-    background-size: contain;
     background-attachment: fixed;
+    background-size: 488px;
     position: relative;
 }
 
 .main-icons {
     position: absolute;
-    top: 50%;
+    top: 49%;
     left: 48%;
-    transform: translate(-50%, -50%);
+    transform: translate(-39%, -52%);
+    margin-top: 19px;
 }
 
 #landing-btn {
@@ -50,9 +51,9 @@ footer.page-footer {
 }
 
 #pill-bottle, #search-icon, #ec-icon {
-    width: 90px;
-    height: 90px;
-    margin-top: 40%;
+    width: 100px;
+    height: 94px;
+    margin-top: 40px;
 }
 
 @media only screen and (max-width: 768px) {
