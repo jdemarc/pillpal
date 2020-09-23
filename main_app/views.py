@@ -39,10 +39,9 @@ def main(request):
 @login_required
 def main_search(request):
     search = request.POST.get('search')
-
-    search = search.replace(' ', '-')
+    if (search):
+        search = search.replace(' ', '-')
     response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
-    
     if (response.status_code >= 400):
         return render(request, 'search.html')
     
