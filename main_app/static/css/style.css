@@ -23,6 +23,10 @@ body {
     background-attachment: fixed;
 }
 
+.main-icons {
+    position: fixed;
+}
+
 #landing-btn {
     margin: 10px;
 }
@@ -44,7 +48,6 @@ footer.page-footer {
 #pill-bottle, #search-icon, #ec-icon {
     width: 90px;
     height: 90px;
-    position: relative;
 }
 
 #pill-bottle {
