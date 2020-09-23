@@ -21,10 +21,14 @@ body {
     background-position: center;
     background-size: contain;
     background-attachment: fixed;
+    position: relative;
 }
 
 .main-icons {
-    position: fixed;
+    position: absolute;
+    top: 50%;
+    left: 48%;
+    transform: translate(-50%, -50%);
 }
 
 #landing-btn {
@@ -48,21 +52,7 @@ footer.page-footer {
 #pill-bottle, #search-icon, #ec-icon {
     width: 90px;
     height: 90px;
-}
-
-#pill-bottle {
-    top: 104px;
-    left: -3%;
-}
-
-#search-icon {
-    top: 138px;
-    left: -3%;
-}
-
-#ec-icon {
-    top: 180px;
-    left: -3%;
+    margin-top: 40%;
 }
 
 @media only screen and (max-width: 768px) {
