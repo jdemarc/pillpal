@@ -128,9 +128,13 @@ def remove_medication(request, prescription_id):
 def medications_search(request, prescription_id):
     search = request.POST.get('search')
 
-    if search:
-        search = search.replace(' ', '-')
-        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+    search = search.replace(' ', '-')
+    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+    
+    if (response.status_code >= 400):
+        return render(request, 'medication/med_search.html')
+    
+    else:
         medication = response.json()
         medication_form = []
 
@@ -148,11 +152,7 @@ def medications_search(request, prescription_id):
             }))
 
         return render(request, 'medication/med_search.html',
-        {'medication': medication['results'],
-        'medication_form': medication_form, 'prescription_id': prescription_id})
-
-    else:
-        return render(request, 'search.html')
+        {'medication_form': medication_form, 'prescription_id': prescription_id})
 
 @login_required
 def medication_assoc(request):
