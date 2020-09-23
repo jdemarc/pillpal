@@ -5,14 +5,22 @@ body {
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Ubuntu', sans-serif;
+    background-color: lightgray;
 }
 
-#landing-page-bg {
+#landing-page-bg, #base-ctr, #main-ctr {
     background-color: lightgray;
     background-image: url("../imgs/pillpal.png");
     background-position: right top;
     /* Top Right Bottom Left */
     background-repeat: no-repeat;
+}
+
+#main-ctr {
+    background-image: url("../imgs/shelf.png");
+    background-position: center;
+    background-size: contain;
+    background-attachment: fixed;
 }
 
 #landing-btn {
@@ -33,13 +41,25 @@ footer.page-footer {
     justify-content: space-around;
 }
 
-#main-container {
-    margin-top: 10vh;
+#pill-bottle, #search-icon, #ec-icon {
+    width: 90px;
+    height: 90px;
+    position: relative;
 }
 
-#pill-bottle, #search-icon, #ec-icon {
-    width: 25%;
-    height: 25%;
+#pill-bottle {
+    top: 104px;
+    left: -3%;
+}
+
+#search-icon {
+    top: 138px;
+    left: -3%;
+}
+
+#ec-icon {
+    top: 180px;
+    left: -3%;
 }
 
 @media only screen and (max-width: 768px) {
