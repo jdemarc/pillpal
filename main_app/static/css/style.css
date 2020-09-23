@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap');
 
 body {
     display: flex;
@@ -45,7 +45,7 @@ footer.page-footer {
     text-align: right;
 }
 
-#prescription-icons {
+#prescription-icons, #ec-buttons {
     display: flex;
     justify-content: space-around;
 }
@@ -54,6 +54,14 @@ footer.page-footer {
     width: 100px;
     height: 94px;
     margin-top: 40px;
+}
+
+.btn {
+  background-color: rgb(218, 5, 22)
+}
+
+strong {
+  font-weight: 700;
 }
 
 @media only screen and (max-width: 768px) {

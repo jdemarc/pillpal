@@ -16,12 +16,12 @@
     <h1>PillPal</h1>
     <form action="{% url 'signup' %}" method='POST'>
       {% csrf_token %}
-      <button class="btn red darken-4" id="landing-btn" type="submit">Sign up</button>
+      <button class="btn" id="landing-btn" type="submit">Sign up</button>
     </form>
 
     <form action="{% url 'login' %}" method="POST">
       {% csrf_token %}
-      <button class="btn red darken-4" id="landing-btn" type="submit">Login</button>
+      <button class="btn" id="landing-btn" type="submit">Login</button>
     </form>
   </main>
 </body>

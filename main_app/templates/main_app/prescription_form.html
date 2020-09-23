@@ -7,13 +7,19 @@
     <h1>Add Prescription</h1>
   {% endif %}
 
-    <form action="" method="POST">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <input type="submit" value="Submit" class="btn">
-  </form>
+  <div class="card">
+    <div class="card-content center-align">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+          {{ form.as_table }}
+        </table>
+        <div class="card-action">
+          <input type="submit" value="Submit" class="btn">
+        </div>
+      </form>
+    </div>
+  </div>
 
 <script>
   const prescriptionDateEl = document.getElementById("id_prescription_issue_date");
