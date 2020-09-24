@@ -5,7 +5,7 @@ from django.http import HttpResponse
 import uuid
 import boto3
 
-from .models import Prescription, Medication, EmergencyContact, Dosing, Photo
+from .models import Prescription, Medication, Note, EmergencyContact, Dosing, Photo
 
 # Form import(s)
 from .forms import DosingForm, NoteForm, MedicationForm
@@ -49,7 +49,6 @@ def main_search(request):
         medication = response.json()
         return render(request, 'search.html', { 'medication': medication['results'] })
     
-
 @login_required
 def prescriptions_index(request):
     prescriptions = Prescription.objects.filter(user=request.user)
@@ -90,6 +89,11 @@ def add_note(request, prescription_id):
     return redirect('detail', prescription_id=prescription_id)
 
 @login_required
+def remove_note(request, prescription_id, note_id):
+    Note.objects.get(id=note_id).delete()
+    return redirect('detail', prescription_id=prescription_id)
+
+@login_required
 def add_photo(request, prescription_id):
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
@@ -119,7 +123,6 @@ def add_medication(request, prescription_id):
 
 @login_required
 def remove_medication(request, prescription_id):
-    #Maybe Medications.objects.get
     Medication.objects.filter(prescription=prescription_id).delete()
 
     return redirect('detail', prescription_id=prescription_id)
@@ -163,7 +166,6 @@ def medication_assoc(request):
 '''
 Emergency Contact Functions
 '''
-
 @login_required
 def emergency_contact_detail(request):
     emergency_contact = EmergencyContact.objects.filter(user=request.user)
@@ -216,6 +218,9 @@ class PrescriptionDelete(LoginRequiredMixin, DeleteView):
     model = Prescription
     success_url = '/prescriptions/'
 
+'''
+Sign up
+'''
 def signup(request):
     error_message = ''
     if request.method == 'POST':

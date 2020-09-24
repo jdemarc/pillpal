@@ -14,6 +14,7 @@ urlpatterns = [
   path('prescriptions/<int:prescription_id>/add_photo', views.add_photo, name='add_photo'),
   path('prescriptions/<int:prescription_id>/remove_photo/<int:photo_id>/', views.remove_photo, name='remove_photo'),
   path('prescriptions/<int:prescription_id>/add_note/', views.add_note, name='add_note'),
+  path('prescriptions/<int:prescription_id>/remove_note/<int:note_id>/', views.remove_note, name='remove_note'),
   path('prescriptions/<int:prescription_id>/add_medication/', views.add_medication, name='add_medication'),
   path('prescriptions/<int:prescription_id>/medications/search/', views.medications_search, name='medication_search'),
   path('prescriptions/<int:prescription_id>/remove_medication/', views.remove_medication, name='remove_medication'),

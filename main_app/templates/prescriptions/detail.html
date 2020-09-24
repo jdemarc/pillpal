@@ -158,6 +158,14 @@
         <tbody><tr>
           <td>{{note.date}}</td>
           <td>{{note.content}}</td>
+          <td>
+            <form action="{% url 'remove_note' prescription.id note.id %}" method="POST">
+              {% csrf_token %}
+              <button class="btn" type="submit">
+                <i class="small material-icons">close</i>
+              </button>
+            </form>
+          </td>
           </tr>
         </tbody>
         {% endfor %}
