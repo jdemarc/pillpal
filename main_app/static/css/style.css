@@ -24,6 +24,10 @@ body {
     position: relative;
 }
 
+.nav-wrapper, .page-footer {
+  background-color: #52bbef;
+}
+
 .main-icons {
     position: absolute;
     top: 49%;
