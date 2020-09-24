@@ -48,7 +48,6 @@ class Note(models.Model):
         ordering = ['-date']
 
 class Medication(models.Model):
-    brand_name = models.CharField(max_length=100)
     generic_name = models.CharField(max_length=100)
     product_ndc = models.CharField(max_length=100)
     dosage_form = models.CharField(max_length=100)

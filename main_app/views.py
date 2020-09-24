@@ -144,7 +144,6 @@ def medications_search(request, prescription_id):
 
         for i in range(0, limit):
             medication_form.append(MedicationForm(initial={
-                'brand_name': medication['results'][i]['brand_name'],
                 'generic_name': medication['results'][i]['generic_name'],
                 'product_ndc': medication['results'][i]['product_ndc'],
                 'description': medication['results'][i]['packaging'][0]['description'],
