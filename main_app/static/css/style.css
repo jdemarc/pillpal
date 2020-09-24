@@ -39,6 +39,12 @@ body {
     width: auto !important;
 }
 
+#sm-logo {
+    height: 65px;
+    width: 150px;
+    margin-left: 15px;
+}
+
 #landing-btn {
     margin: 10px;
 }
