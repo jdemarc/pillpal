@@ -39,15 +39,21 @@ def main(request):
 @login_required
 def main_search(request):
     search = request.POST.get('search')
+
     if (search):
         search = search.replace(' ', '-')
-    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
-    if (response.status_code >= 400):
-        return render(request, 'search.html')
+        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
     
+        if (response.status_code >= 400):
+            return render(request, 'search.html')
+    
+        else:
+            medication = response.json()
+            return render(request, 'search.html', { 'medication': medication['results'] })
+
     else:
-        medication = response.json()
-        return render(request, 'search.html', { 'medication': medication['results'] })
+        return render(request, 'search.html')
+
     
 @login_required
 def prescriptions_index(request):
@@ -130,30 +136,33 @@ def remove_medication(request, prescription_id):
 def medications_search(request, prescription_id):
     search = request.POST.get('search')
 
-    search = search.replace(' ', '-')
-    response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
+    if (search):
+        search = search.replace(' ', '-')
+        response = requests.get('https://api.fda.gov/drug/ndc.json?search=generic_name:%s&limit=5' % search)
     
-    if (response.status_code >= 400):
-        return render(request, 'medication/med_search.html')
+        if (response.status_code >= 400):
+            return render(request, 'medication/med_search.html')
     
+        else:
+            medication = response.json()
+            medication_form = []
+
+            limit = len(medication)
+
+            for i in range(0, limit):
+                medication_form.append(MedicationForm(initial={
+                    'generic_name': medication['results'][i]['generic_name'],
+                    'product_ndc': medication['results'][i]['product_ndc'],
+                    'description': medication['results'][i]['packaging'][0]['description'],
+                    'active_ingredient': medication['results'][i]['active_ingredients'][0]['name'],
+                    'dosage_form': medication['results'][i]['dosage_form'],
+                    'strength': medication['results'][i]['active_ingredients'][0]['strength']
+                }))
+
+            return render(request, 'medication/med_search.html',
+            {'medication_form': medication_form, 'prescription_id': prescription_id})
     else:
-        medication = response.json()
-        medication_form = []
-
-        limit = len(medication)
-
-        for i in range(0, limit):
-            medication_form.append(MedicationForm(initial={
-                'generic_name': medication['results'][i]['generic_name'],
-                'product_ndc': medication['results'][i]['product_ndc'],
-                'description': medication['results'][i]['packaging'][0]['description'],
-                'active_ingredient': medication['results'][i]['active_ingredients'][0]['name'],
-                'dosage_form': medication['results'][i]['dosage_form'],
-                'strength': medication['results'][i]['active_ingredients'][0]['strength']
-            }))
-
-        return render(request, 'medication/med_search.html',
-        {'medication_form': medication_form, 'prescription_id': prescription_id})
+        return redirect('detail', prescription_id=prescription_id)
 
 @login_required
 def medication_assoc(request):
