@@ -12,7 +12,6 @@ body {
     background-color: lightgray;
     background-image: url("../imgs/pillpal.png");
     background-position: right top;
-    /* Top Right Bottom Left */
     background-repeat: no-repeat;
 }
 
