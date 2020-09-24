@@ -32,6 +32,13 @@ body {
     margin-top: 19px;
 }
 
+.dropdown-content {
+    top: 100% !important;
+    overflow: visible !important;
+    overflow-y: visible;
+    width: auto !important;
+}
+
 #landing-btn {
     margin: 10px;
 }
