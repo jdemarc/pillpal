@@ -114,7 +114,6 @@
         {% if prescription.medication_set.count %} 
         {% for medication in prescription.medication_set.all %}
         <p>Generic name: {{ medication.generic_name }}</p>
-        <p>Brand name: {{ medication.brand_name }}</p>
         <p>NDC {{ medication.product_ndc }}</p>
         <p>Dosage: {{ medication.dosage_form }}</p>
         <p>Strength: {{ medication.strength }}</p>

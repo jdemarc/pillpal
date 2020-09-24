@@ -20,5 +20,5 @@ class NoteForm(ModelForm):
 class MedicationForm(ModelForm):
     class Meta:
         model = Medication
-        fields = ['brand_name', 'generic_name', 'product_ndc',
+        fields = ['generic_name', 'product_ndc',
         'description', 'dosage_form', 'active_ingredient', 'strength']

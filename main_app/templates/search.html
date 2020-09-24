@@ -21,9 +21,9 @@
     {% for property in medication %}
     <div class="card">
         <div class="card-content">
-          <p> Brand name: {{ property.brand_name }} </p>
           <p> Generic name: {{ property.generic_name }} </p>
           <p> National Drug Code: {{ property.product_ndc }} </p>
+          <p> Description: {{ property.description }} </p>
         </div>
     </div>
     {% endfor %}
