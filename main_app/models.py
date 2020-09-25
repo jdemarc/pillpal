@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
-from datetime import date
+from datetime import date, datetime
+from pytz import timezone
 
 from django.contrib.auth.models import User
 
@@ -23,7 +24,13 @@ class Prescription(models.Model):
         return self.dosing_set.filter(date=date.today()).count() >= self.times_per_day
 
     def times_taken(self):
-        return self.times_per_day - self.dosing_set.filter(date=date.today()).count()
+
+        #Convert date to Pacific time.
+        format = "%Y-%m-%d"
+        now_utc = datetime.now(timezone('UTC'))
+        now_wc = now_utc.astimezone(timezone('US/Pacific'))
+
+        return self.times_per_day - self.dosing_set.filter(date=now_wc.strftime(format)).count()
         
 class Dosing(models.Model):
     date = models.DateField('Administration Date')
