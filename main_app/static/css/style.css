@@ -5,18 +5,18 @@ body {
     min-height: 100vh;
     flex-direction: column;
     font-family: 'Ubuntu', sans-serif;
-    background-color: lightgray;
+    background-image: url("../imgs/simple-dots.jpg");
 }
 
 #landing-page-bg, #base-ctr, #main-ctr {
     background-color: lightgray;
-    background-image: url("../imgs/pillpal.png");
+    background-image: url("../imgs/pillpal.png"), url("../imgs/simple-dots.jpg");
     background-position: right top;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat, repeat;
 }
 
 #main-ctr {
-    background-image: url("../imgs/shelf.png");
+    background-image: url("../imgs/shelf.png"), url("../imgs/simple-dots.jpg");
     background-position: center;
     background-attachment: fixed;
     background-size: 488px;
@@ -42,6 +42,9 @@ body {
     width: auto !important;
 }
 
+.card, .card-panel {
+  opacity: .9;
+}
 #sm-logo {
     height: 65px;
     width: 150px;
