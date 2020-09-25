@@ -13,20 +13,29 @@ PillPal is a user-oriented personal assistant, designed and customized to enable
 -	A reminder for user to take their medication, including a decremental counter and a notification should a user log more than they were prescribed to take
 -	Ability to add notes on each prescription
 
-## Screenshots:
+### Getting Started
 
-### Main Page:
+#### **[PillPal](https://sei-pillpal.herokuapp.com/)**
+
+#### **[Trello](https://trello.com/b/swctk4CT/pillpal)**
+
+#### **[Pitch Deck](https://docs.google.com/presentation/d/1TpYtIILWDtbW2d3zAJ2Os2_KaguYeqiv12eXJPcKx2k/edit?usp=sharing)**
+
+
+### Screenshots:
+
+#### Main Page:
 
 <img src="https://i.imgur.com/9teTMhW.jpg" width="300">
 
-### Home Page:
-- Prescription List
-- Search
-- Emergency Contact
+#### Home Page:
+- ##### Prescription List
+- ##### Search
+- ##### Emergency Contact
 
 <img src="https://i.imgur.com/uaKaevt.jpg" width="300">
 
-### Dropdown:
+#### Dropdown:
 <img src="https://i.imgur.com/aiIahOw.jpg" width="300">
 
 #### Add Prescription:
@@ -35,28 +44,28 @@ PillPal is a user-oriented personal assistant, designed and customized to enable
 #### View All Prescriptions:
 <img src="https://i.imgur.com/1vT4NtF.jpg" width="300">
 
-#### Prescription Details
+#### Prescription Details:
 <img src="https://i.imgur.com/zYGGcjm.jpg" width="300">
 
 #### Medication Search from within Prescription Details page
 <img src="https://i.imgur.com/6aGqmgk.jpg" width="300">
 
-### Search Results
+#### Search Results:
 <img src="https://i.imgur.com/PstFJeJ.jpg" width="300">
 
-#### Prescription Details once medication is added
+#### Prescription Details once medication is added:
 <img src="https://i.imgur.com/zYGGcjm.jpg" width="300">
 
-#### Prescription reminders
+#### Prescription reminders:
 <img src="https://i.imgur.com/lMhWL6N.jpg" width="300">
 <img src="https://i.imgur.com/Ep2GxbO.jpg" width="300">
 <img src="https://i.imgur.com/ZkFWKpX.jpg" width="300">
 <img src="https://i.imgur.com/dOGtvSw.jpg" width="300">
 
-#### Adding and Deleting Notes
+#### Adding and Deleting Notes:
 <img src="https://i.imgur.com/HcYvJ6C.jpg" width="300">
 
-### Adding and Deleting Images
+#### Adding and Deleting Images:
 <img src="https://i.imgur.com/5YyQlbw.jpg" width="300">
 <img src="https://i.imgur.com/S5uXWGL.jpg" width="300">
 
@@ -89,4 +98,13 @@ ___See example below___
 
 ### Icebox:
 
--	Text-to-speech accessibility
+- Text-to-speech accessibility
+
+- User Profile Mangement
+
+- Refill Tracking
+
+- Expand API Searchability
+
+- Health Statistic Tracking
+
