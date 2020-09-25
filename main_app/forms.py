@@ -1,6 +1,6 @@
 from django import forms 
 from django.forms import ModelForm
-from .models import Dosing, Note, Medication, Prescription
+from .models import Dosing, Note, Medication
 
 
 class DosingForm(ModelForm):

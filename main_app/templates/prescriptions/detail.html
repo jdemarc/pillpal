@@ -17,15 +17,8 @@
         <p>Refills: {{ prescription.refills }}</p>
       </div>
       <div class="card-action" id="prescription-icons">
-        <form action="{% url 'prescriptions_update' prescription.id %}" method="POST">
-          {% csrf_token %}
-          <button class="btn" type="submit" id='prescription-btns'>EDIT</button>
-        </form>
-
-        <form action="{% url 'prescriptions_delete' prescription.id %}" method="POST">
-          {% csrf_token %}
-          <button class="btn" type="submit" id='prescription-btns'>REMOVE</button>
-        </form>
+        <a href="{% url 'prescriptions_update' prescription.id %}" class="btn">EDIT</a>
+        <a href="{% url 'prescriptions_delete' prescription.id %}" class="btn">DELETE</a>
       </div>
     </div>
     {% for photo in prescription.photo_set.all %}
@@ -37,7 +30,6 @@
         <form action="{% url 'remove_photo' prescription.id photo.id %}" method="POST">
           {% csrf_token %}
           <button class="btn" type="submit">REMOVE
-            <!-- <i class="small material-icons">close</i> -->
           </button>
         </form>
       </div>
@@ -74,21 +66,11 @@
     <br />
 
     {% if prescription.times_per_day >= prescription.times_taken and prescription.times_taken > 0 %}
-    <div class="card-panel amber-text center-align">
-      <strong>You have {{prescription.times_taken}} remaining doses </strong>
-    </div>
+    <div class="card-panel amber-text center-align">You have {{prescription.times_taken}} remaining doses</div>
     {% elif prescription.times_taken == 0 %}
-    <div class="card-panel teal-text center-align">
-      <strong>
-        You have taken your required doses for today.
-      </strong>
-    </div>
+    <div class="card-panel teal-text center-align">You have taken your required doses for today.</div>
     {% else %}
-    <div class="card-panel red-text center-align">
-      <strong>
-        You have taken too much today!
-      </strong>
-    </div>
+    <div class="card-panel red-text center-align">You have taken too much today!</div>
     {% endif %}
 
     <table class="striped">
