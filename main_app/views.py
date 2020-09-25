@@ -148,7 +148,7 @@ def medications_search(request, prescription_id):
             medication = response.json()
             medication_form = []
 
-            limit = len(medication)
+            limit = len(medication['results'])
 
             for i in range(0, limit):
                 medication_form.append(MedicationForm(initial={
