@@ -12,7 +12,51 @@
       <form action="" method="POST">
         {% csrf_token %}
         <table>
-          {{ form.as_table }}
+          <!-- {{ form.as_table }} -->
+          <tbody>
+            <tr>
+              <th><label for="id_rx_number">Rx number:</label></th>
+              <td>
+                <input type="number" name="rx_number" required="" id="id_rx_number" value={{object.rx_number}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_prescription_issue_date">Rx Issue Date:</label></th>
+              <td>
+                <input type="text" name="prescription_issue_date" required="" id="id_prescription_issue_date" value={{object.prescription_filled_date}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_prescription_filled_date">Rx Filled On Date:</label></th>
+              <td>
+                <input type="text" name="prescription_filled_date" required="" id="id_prescription_filled_date" value={{object.prescription_filled_date}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_times_per_day">Pills per day:</label></th>
+              <td>
+                <input type="number" name="times_per_day" required="" id="id_times_per_day" value={{object.times_per_day}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_delivery">Delivery:</label></th>
+              <td>
+                <input type="text" name="delivery" required="" id="id_delivery" value={{object.delivery}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_dosage">Dosage:</label></th>
+              <td>
+                <input type="text" name="dosage" required="" id="id_dosage" value={{object.dosage}}>
+              </td>
+            </tr>
+            <tr>
+              <th><label for="id_refills">Refills:</label></th>
+              <td>
+                <input type="number" name="refills" required="" id="id_refills" value={{object.refills}}>
+              </td>
+            </tr>
+          </tbody>
         </table>
         <div class="card-action">
           <input type="submit" value="Submit" class="btn">
@@ -37,6 +81,8 @@
     setDefaultDate: true,
     autoClose: true,
   });
+
+  console.log(this.object)
 </script>
 
 {% endblock %}
