@@ -64,13 +64,22 @@
     </div>
     
     <br />
-
     {% if prescription.times_per_day >= prescription.times_taken and prescription.times_taken > 0 %}
-    <div class="card-panel amber-text center-align">You have {{prescription.times_taken}} remaining doses</div>
+    <div class="card-panel amber-text center-align">
+      {% if prescription.times_taken == 1 %}
+      <strong>You have 1 remaining dose </strong>
+      {% else %}
+      <strong>You have {{prescription.times_taken}} remaining doses</strong>
+      {% endif %}
+    </div>
     {% elif prescription.times_taken == 0 %}
-    <div class="card-panel teal-text center-align">You have taken your required doses for today.</div>
+    <div class="card-panel teal-text center-align">
+      <strong>You have taken your required doses for today.</strong>
+    </div>
     {% else %}
-    <div class="card-panel red-text center-align">You have taken too much today!</div>
+    <div class="card-panel red-text center-align">
+      <strong>You have taken too much today!</strong>
+    </div>
     {% endif %}
 
     <table class="striped">
