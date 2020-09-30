@@ -3,16 +3,22 @@
 
 <h1>Prescription List</h1>
 
-{% for prescription in prescriptions %}
-  <div class="card">
-    <a href="{% url 'detail' prescription.id %}">
-    <div class="card-content">
-      <span class="card-title">Prescription {{ prescription.rx_number }}</span>
-      <p>Date issued: {{ prescription.prescription_issue_date}}</p>
+{% if prescription %}
+  {% for prescription in prescriptions %}
+    <div class="card">
+      <a href="{% url 'detail' prescription.id %}">
+      <div class="card-content">
+        <span class="card-title">Prescription {{ prescription.rx_number }}</span>
+        <p>Date issued: {{ prescription.prescription_issue_date}}</p>
+      </div>
+      </a>
     </div>
-    </a>
-  </div>
-  
-{% endfor %}
+  {% endfor %}
+{% else %}
+  <form action="{% url 'prescriptions_create' %}" method='POST'>
+    {% csrf_token %}
+    <button class="btn" type="submit">Add prescription</button>
+  </form>
+{% endif %}
 
 {% endblock %}
